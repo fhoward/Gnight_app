@@ -12,12 +12,12 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_05_03_070615) do
   create_table "attendances", force: :cascade do |t|
-    t.integer "user_id_id", null: false
+    t.integer "user_id", null: false
     t.time "time_in"
     t.time "time_out"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id_id"], name: "index_attendances_on_user_id_id"
+    t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -26,5 +26,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_070615) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "attendances", "user_ids"
+  add_foreign_key "attendances", "users"
 end
