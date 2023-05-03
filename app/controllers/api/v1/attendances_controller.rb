@@ -4,7 +4,7 @@ class Api::V1::AttendancesController < ApplicationController
     def clock_in
         # check the last clocked in of user where time_out is null
         last_clock_in = @current_user.attendances.where(time_out: nil).last
-        # if user clock out
+        # if user has no exisiting records of time in to clock out
         if last_clock_in.nil? 
             time_in = @current_user.attendances.create(time_in: Time.now)
             render json: time_in,status: :created
@@ -17,6 +17,7 @@ class Api::V1::AttendancesController < ApplicationController
     def clock_out
         # check the last clocked in of user where time_out is null
         last_clock_in = @current_user.attendances.where(time_out: nil).last
+        # if user already clock out
         if last_clock_in.nil? 
             render json: 'You have no existing records to clock out', status: :bad_request
         else
