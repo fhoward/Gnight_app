@@ -9,9 +9,9 @@ class User < ApplicationRecord
 
     def follow_friend(friend)
         if self != friend && !friends.include?(friend)
-            friends << friend 
+            friends << friend
         else
-            errors.add("Error on adding friend")
+           errors.add(:friends, :error, message: ": Error on adding friend")
         end
     end
 
