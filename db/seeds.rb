@@ -10,7 +10,7 @@ end
 
     80.times do
         time_in = Faker::Time.forward(days: 23, period: :morning)
-        user.attendances.create(time_in: time_in, time_out: time_in + rand(8))
+        user.attendances.create(time_in: time_in, time_out: time_in + rand(1.hour..24.hour))
     end
 end
 
