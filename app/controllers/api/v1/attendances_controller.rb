@@ -7,7 +7,7 @@ class Api::V1::AttendancesController < ApplicationController
         # if user has no exisiting records of time in to clock out
         if last_clock_in.nil? 
             time_in = @current_user.attendances.create(time_in: Time.now)
-            render json: time_in,status: :created
+            render json: AttendanceSerializer.new(time_in).serializable_hash.to_json,status: :created
         # if not
         else
             render json: 'You have existing clock in record and forgot to clock out', status: :bad_request
@@ -22,7 +22,7 @@ class Api::V1::AttendancesController < ApplicationController
             render json: 'You have no existing records to clock out', status: :bad_request
         else
             last_clock_in.update(time_out: Time.now)
-            render json: last_clock_in,status: :ok
+            render json: AttendanceSerializer.new(last_clock_in).serializable_hash.to_json,status: :ok
         end
     end
 end
